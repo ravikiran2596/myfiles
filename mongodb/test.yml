@@ -1,0 +1,64 @@
+---
+- name: Install MongoDB
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Add MongoDB GPG key ubuntu 
+      apt_key: 
+        url: hkp://keyserver.ubuntu.com:80
+        id: 9DA31620334BD75D9DCB49F368818C72E52529D4
+        state: present
+      when:
+      - ansible_facts['distribution'] == "Ubuntu"  
+    - name: Add MongoDB apt repository ubuntu 
+      apt_repository: 
+        repo: 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse'
+        state: present
+      when:
+      - ansible_facts['distribution'] == "Ubuntu"
+    - name: Add MongoDB apt repository ubuntu 
+      yum_repository: 
+        repo: "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.0/$basearch/"
+        state: present
+      when:
+      - ansible_facts['distribution'] == "CentOS"
+    - name: copy repo files centos
+      ansible.builtin.copy:
+        src: mongodb-org.repo
+        dest: /etc/yum.repos.d/
+      when: 
+      - ansible_facts['distribution'] == "CentOS" 
+    - name: Update packages and install mongodb ubuntu 
+      apt:    
+        name: mongodb-org
+        update_cache: yes
+        state: present
+      notify:
+      - start MongoDB service
+      when:
+      - ansible_facts['distribution'] == "Ubuntu"  
+    - name: install mongodb-org centos
+      yum:
+        name: mongodb-org
+        update_cache: true
+        state: present
+      notify:
+      - start MongoDB service
+      when: 
+      - ansible_facts['distribution'] == "CentOS"   
+    - name: edited the mogod file
+      ansible.builtin.copy:
+        src: mongod.conf
+        dest: /etc/mongod.conf
+      notify:
+      - restart MongoDB service    
+  handlers:
+    - name: start MongoDB service
+      service:
+        name: mongod
+        state: started
+        enabled: true 
+    - name: restart MongoDB service
+      service:
+        name: mongod
+        state: restarted  
