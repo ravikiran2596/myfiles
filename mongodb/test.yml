@@ -16,25 +16,23 @@
         state: present
       when:
       - ansible_facts['distribution'] == "Ubuntu"
-    - name: Add MongoDB apt repository ubuntu 
-      yum_repository: 
-        repo: "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.0/$basearch/"
-        state: present
-      when:
-      - ansible_facts['distribution'] == "CentOS"
-    - name: copy repo files centos
-      ansible.builtin.copy:
-        src: mongodb-org.repo
-        dest: /etc/yum.repos.d/
+    - name: Add MongoDB yum repository centos 
+      yum_repository:
+        name: mongodb-org-4.4
+        description: MongoDB Repository
+        baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+        gpgcheck: 1
+        enabled: 1
+        gpgkey: https://www.mongodb.org/static/pgp/server-4.4.asc
       when: 
-      - ansible_facts['distribution'] == "CentOS" 
+      - - ansible_facts['distribution'] == "CentOS"   
     - name: Update packages and install mongodb ubuntu 
       apt:    
         name: mongodb-org
         update_cache: yes
         state: present
       notify:
-      - start MongoDB service
+      - start MongoD service
       when:
       - ansible_facts['distribution'] == "Ubuntu"  
     - name: install mongodb-org centos
@@ -43,7 +41,7 @@
         update_cache: true
         state: present
       notify:
-      - start MongoDB service
+      - start MongoD service
       when: 
       - ansible_facts['distribution'] == "CentOS"   
     - name: edited the mogod file
@@ -51,14 +49,14 @@
         src: mongod.conf
         dest: /etc/mongod.conf
       notify:
-      - restart MongoDB service    
+      - restart MongoD service    
   handlers:
-    - name: start MongoDB service
+    - name: start MongoD service
       service:
         name: mongod
         state: started
         enabled: true 
-    - name: restart MongoDB service
+    - name: restart MongoD service
       service:
         name: mongod
         state: restarted  
