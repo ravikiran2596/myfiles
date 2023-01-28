@@ -23,12 +23,6 @@
         name: mongod
         state: started
         enabled: yes
-    - name: Run MongoDB command
-      command:  "mongo --eval 'db.runCommand({ connectionStatus: 1 })'"
-      register: result
-    - name: Debug
-      debug:
-        var: result
     - name: edited the mogod file
       ansible.builtin.copy:
         src: mongod.conf
