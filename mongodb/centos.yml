@@ -1,0 +1,38 @@
+---
+- name: Install MongoDB
+  hosts: webserver
+  become: yes
+  tasks:  
+    - name: Add MongoDB yum repository centos 
+      yum_repository:
+        name: mongodb-org-6.0
+        description: MongoDB Repository
+        baseurl: 'https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/x86_64/'
+        gpgcheck: 1
+        enabled: 1 
+        gpgkey: 'https://www.mongodb.org/static/pgp/server-6.0.asc'
+    - name: install mongodb-org centos
+      yum:
+        name: mongodb-org   
+        update_cache: true
+        state: present
+      notify:
+      - start MongoD service   
+    - name: edited the mogod file
+      ansible.builtin.copy:
+        src: mongod.conf
+        dest: /etc/mongod.conf
+      notify:
+      - restart MongoD service    
+  handlers:
+    - name: start MongoD service
+      service:
+        name: mongod
+        daemon-reload: true
+        enabled: true
+        state: started 
+    - name: restart MongoD service
+      service:
+        name: mongod
+        daemon-reload: true
+        state: restarted  
