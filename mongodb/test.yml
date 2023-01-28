@@ -25,7 +25,7 @@
         enabled: 1
         gpgkey: https://www.mongodb.org/static/pgp/server-4.o.asc
       when: 
-      - - ansible_facts['distribution'] == "CentOS"   
+      - ansible_facts['distribution'] == "CentOS"   
     - name: Update packages and install mongodb ubuntu 
       apt:    
         name: mongodb-org
