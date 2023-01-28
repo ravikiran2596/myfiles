@@ -1,6 +1,6 @@
 ---
 - name: Install MongoDB
-  hosts: webserver
+  hosts: all 
   become: yes
   tasks:
     - name: Add MongoDB GPG key ubuntu 
