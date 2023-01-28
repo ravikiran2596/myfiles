@@ -13,8 +13,7 @@
         gpgkey: 'https://www.mongodb.org/static/pgp/server-6.0.asc'
     - name: install mongodb-org centos
       yum:
-        name: mongodb-org   
-        update_cache: true
+        name: mongodb-org    
         state: present
       notify:
       - start MongoD service   
