@@ -23,7 +23,7 @@
         gpgcheck: yes
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install node.js on centos 
-      ansible.builtin.yum:
+      yum:
         name: nodejs
         state: present   
       when: "'CentOS' in ansible_facts['distribution']"     
