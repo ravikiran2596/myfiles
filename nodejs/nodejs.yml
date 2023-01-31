@@ -11,10 +11,10 @@
         update_cache: true
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']"
-    - name: update update
+    - name: update cache
       yum: 
         update_cache: true
-      when: "'Ubuntu' in ansible_facts['distribution']"  
+      when: "'CentOS' in ansible_facts['distribution']"  
     - name: Add NodeSource repository 
       yum_repository:
         name: nodesource
