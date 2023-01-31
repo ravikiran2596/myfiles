@@ -11,16 +11,16 @@
         update_cache: true
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']"
-    - name: update cache
-      yum: 
+    - name: install 
+      yum:
+        name: 
+        - PPA
+        - curl
         update_cache: true
+        state: present
       when: "'CentOS' in ansible_facts['distribution']"  
     - name: Add NodeSource repository 
-      yum_repository:
-        name: nodesource
-        description: Node.js Packages
-        baseurl: https://rpm.nodesource.com/pub_14.x/el/7/$basearch
-        gpgcheck: yes
+      shell: curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install node.js on centos 
       yum:
