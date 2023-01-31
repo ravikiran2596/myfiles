@@ -18,6 +18,7 @@
     - name: Add NodeSource repository 
       yum_repository:
         name: nodesource
+        description: Node.js Packages
         baseurl: https://rpm.nodesource.com/setup_10.x
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install nodejs on centos 
