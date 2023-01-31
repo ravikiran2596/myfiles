@@ -12,8 +12,7 @@
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']"   
     - name: Add NodeSource repository 
-      ansible.builtin.package:
-        name: https://rpm.nodesource.com/setup_10.x
+      ansible.builtin.command: https://rpm.nodesource.com/setup_10.x
         update_cache: yes 
         state: present    
       when: "'CentOS' in ansible_facts['distribution']"    
