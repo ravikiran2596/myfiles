@@ -1,6 +1,7 @@
 ---
 - name: install dotnet core 6.0
   hosts: all
+  become: yes 
   vars:
     dotnet_ubuntu: "6.0"
     dotnet_centos: "7.0"
