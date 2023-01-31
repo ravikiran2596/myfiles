@@ -21,10 +21,9 @@
         description: Node.js Packages
         baseurl: https://rpm.nodesource.com/setup_10.x
       when: "'CentOS' in ansible_facts['distribution']"    
-    - name: install nodejs on centos 
+    - name: install node.js on centos 
       ansible.builtin.yum:
         name: nodejs
-        update_cache: true
         state: present   
       when: "'CentOS' in ansible_facts['distribution']"     
 
