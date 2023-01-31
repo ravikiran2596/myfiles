@@ -3,7 +3,7 @@
   become: yes
   hosts: all
   tasks:
-    - name: Install java
+    - name: Install nodejs and npm 
       ansible.builtin.apt:
         name: 
          - nodejs
