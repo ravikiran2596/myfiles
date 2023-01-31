@@ -1,3 +1,3 @@
 ---
 # vars file for myrole
-openjdk_versions: "11"
+openjdk_versions: "18"
