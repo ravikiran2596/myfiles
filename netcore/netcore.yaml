@@ -3,7 +3,8 @@
   become: yes
   hosts: all
   vars:
-    dotnet_versions: "6.0"
+    dotnet_ubuntu: "6.0"
+    dotnet_centos: "7.0"
   tasks:
     - name: Install apt transport https
       ansible.builtin.apt:
@@ -13,7 +14,7 @@
       when: "'Ubuntu' in ansible_facts['distribution']"    
     - name: Install dotnet core
       ansible.builtin.apt:
-        name: dotnet-sdk-{{ dotnet_versions }}
+        name: dotnet-sdk-{{ dotnet_ubuntu }}
         update_cache: yes 
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']"  
@@ -25,7 +26,7 @@
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install dotnet
       ansible.builtin.yum:    
-        name: dotnet-sdk-7.0
+        name: dotnet-sdk-{{ dotnet_centos }}
         update_cache: yes 
         state: present
       when: "'CentOS' in ansible_facts['distribution']"  
