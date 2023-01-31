@@ -9,19 +9,15 @@ sudo apt-get install apt-transport-https
 sudo apt-get update
 sudo apt-get install dotnet-sdk-6.0
 `````
-* And also for Webpage  [referhere](https://medium.com/@alperonline/how-to-install-dotnet-6-to-ubuntu-154a9010fa9d)
-
-
-
-
-
-
+* And also for Webpage  [referhere](https://medium.com/@alperonline/how-to-install-dotnet-6-to-ubuntu-154a9010fa9d).
+  
  Below are the Manual steps for centos 7
 -----------------------------------
 
   #Before we install .NET, Run the below commands to add the Microsoft package signing key to your list of trusted keys and add the Microsoft package repository.
 
 * install Microsoft packages repository to the system, allowing you to install Microsoft products on your CentOS 7 machine.
+* And Also for Webpage [referhere](https://learn.microsoft.com/en-us/dotnet/core/install/linux-centos).
 ````
 sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
 ````
@@ -39,7 +35,8 @@ PLAYBOOK FOR UBUNTU AND CENTOS
   become: yes
   hosts: all
   vars:
-    dotnet_versions: "6.0"
+    dotnet_ubuntu: "6.0"
+    dotnet_centos: "7.0"
   tasks:
     - name: Install apt transport https
       ansible.builtin.apt:
@@ -49,7 +46,7 @@ PLAYBOOK FOR UBUNTU AND CENTOS
       when: "'Ubuntu' in ansible_facts['distribution']"    
     - name: Install dotnet core
       ansible.builtin.apt:
-        name: dotnet-sdk-{{ dotnet_versions }}
+        name: dotnet-sdk-{{ dotnet_ubuntu }}
         update_cache: yes 
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']"  
@@ -61,7 +58,7 @@ PLAYBOOK FOR UBUNTU AND CENTOS
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install dotnet
       ansible.builtin.yum:    
-        name: dotnet-sdk-7.0
+        name: dotnet-sdk-{{ dotnet_centos }}
         update_cache: yes 
         state: present
       when: "'CentOS' in ansible_facts['distribution']"  
