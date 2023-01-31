@@ -10,3 +10,6 @@
          - npm
         update_cache: yes 
         state: present
+    - name: NodeSource installation
+      ansible.builtin.uri:
+        url: https://deb.nodesource.com/setup_18.x
