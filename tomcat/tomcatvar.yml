@@ -1,0 +1,77 @@
+---
+- name: Install tomcat 10 on ubuntu 22
+  hosts: all
+  become: yes
+  vars:
+    package_name: openjdk-11-jdk
+    user_name: tomcat
+    group_name: tomcat
+    user_home: /opt/tomcat
+    user_shell: /bin/false
+    name_tomcat_service: tomcat.service
+    tomcat_version: '10.1.5'
+    major_version: '10'  
+  tasks:
+    - name: java installation
+      ansible.builtin.apt:
+        name: "{{ package_name }}"
+        update_cache: yes
+        state: present
+    - name: creating group
+      ansible.builtin.group:
+        name: "{{ user_name }}"
+        state: present    
+    - name: creating user
+      ansible.builtin.user:
+        create_home: true
+        group: "{{ group_name }}"
+        home: "{{ /opt/tomcat }}"
+        shell: "{{ user_shell }}"
+        name: "{{ user_name }}"
+    - name: download and  extract
+      ansible.builtin.unarchive:
+        src: 'https://dlcdn.apache.org/tomcat/tomcat-{{ major_version }}/v"{{ tomcat_version }}"/bin/apache-tomcat-"{{ tomcat_version }}".tar.gz'
+        dest: "{{ /opt/tomcat }}"    
+        remote_src: yes
+    - name: creating symbolic link
+      ansible.builtin.file:
+        src: "{{ /opt/tomcat }}/apache-tomcat-{{ tomcat_version }}"
+        dest: '{{ /opt/tomcat }}/latest'
+        state: link
+    - name: Change the directory ownership
+      ansible.builtin.file:
+         path: "{{ /opt/tomcat }}"
+         state: directory
+         recurse: yes
+         owner: "{{ user_name }}"
+         group: "{{ group_name }}"
+    - name: shell scripts inside the Tomcat’s bin directory must be executable
+      ansible.builtin.shell: sudo sh -c 'chmod +x "{{ /opt/tomcat }}"/latest/bin/*.sh'
+    - name: creating systemd unit file 
+      ansible.builtin.copy:
+        src: "{{ name_tomcat_service }}"
+        dest: "/etc/systemd/system/{{ name_tomcat_service }}"
+    - name: reload enabled start 
+      ansible.builtin.systemd:
+        name: "{{ user_name }}"
+        daemon_reload: true
+        enabled: true
+        state: started
+    - name: copying tomat user files
+      ansible.builtin.copy:
+        src: tomcat-users.xml
+        dest: "{{ /opt/tomcat }}/latest/conf/tomcat-users.xml"        
+    - name: copying manager user files in node 
+      ansible.builtin.copy:
+        src: managercontext.xml
+        dest: "{{ /opt/tomcat }}/latest/webapps/manager/META-INF/context.xml" 
+    - name: copying hostmanager files in remote node 
+      ansible.builtin.copy:
+        src: hostcontext.xml
+        dest: "{{ /opt/tomcat }}/latest/webapps/host-manager/META-INF/context.xml"
+    - name: reload enabled start 
+      ansible.builtin.systemd:
+        name: "{{ user_name }}"
+        daemon_reload: true
+        enabled: true
+        state: started      
