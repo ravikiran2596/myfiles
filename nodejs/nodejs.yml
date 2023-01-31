@@ -1,6 +1,7 @@
 ---
 - name: install nodejs
   hosts: all
+  become: yes
   tasks:
     - name: Install Node package manager and Nodejs on Ubuntu.
       ansible.builtin.apt:
@@ -9,11 +10,13 @@
          - nodejs
         update_cache: true
         state: present
-      when: "'Ubuntu' in ansible_facts['distribution']"   
-    - name: Add NodeSource repository 
-      command:
+      when: "'Ubuntu' in ansible_facts['distribution']"
+    - name: update update
+      yum: 
         update_cache: true
-        state: present    
+      when: "'Ubuntu' in ansible_facts['distribution']"  
+    - name: Add NodeSource repository 
+      command: curl –sL https://rpm.nodesource.com/setup_10.x | sudo bash -
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install nodejs on centos 
       ansible.builtin.yum:
