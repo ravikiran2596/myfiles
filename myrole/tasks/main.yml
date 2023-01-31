@@ -1,2 +1,7 @@
 ---
 # tasks file for myrole
+- name: Install java
+  ansible.builtin.apt:
+    name: openjdk-{{ openjdk_versions }}-jdk
+    update_cache: yes 
+    state: present
