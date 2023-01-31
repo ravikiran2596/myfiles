@@ -16,7 +16,9 @@
         update_cache: true
       when: "'Ubuntu' in ansible_facts['distribution']"  
     - name: Add NodeSource repository 
-      command: curl –sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+      yum_repository:
+        name: nodesource
+        baseurl: https://rpm.nodesource.com/setup_10.x
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install nodejs on centos 
       ansible.builtin.yum:
