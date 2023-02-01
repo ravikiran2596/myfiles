@@ -11,7 +11,7 @@
       dpkg_selections:
         name: packages-microsoft-prod.deb
         selection: install 
-    - name: Install apt-transport-https and aspnetcore-runtime-7.0
+    - name: Install apt-transport-https and Dotnet 
       apt:
         name:
           - apt-transport-https
@@ -26,3 +26,18 @@
       service:
         name: nginx
         state: started    
+    - name: Create Nginx default configuration
+      copy:
+        src: default.conf
+        dest: /etc/nginx/sites-available/default
+        owner: root
+        group: root
+        mode: 0644    
+    - name: Create nopCommerce directory
+      file:
+        path: /var/www/nopCommerce
+        state: directory
+    - name: Download nopCommerce
+      get_url:
+        url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.1/nopCommerce_4.60.1_NoSource_linux_x64.zip
+        dest: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip        
