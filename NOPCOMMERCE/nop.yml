@@ -9,5 +9,5 @@
         dest: /tmp/packages-microsoft-prod.deb
     - name: Install Microsoft packages
       dpkg_selections:
-        path: packages-microsoft-prod.deb
-        state: present
+        name: packages-microsoft-prod.deb
+        selection: install 
