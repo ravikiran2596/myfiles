@@ -71,8 +71,6 @@
       service:
         name: nopCommerce
         state: started
-    - name: Check nopCommerce status
-      shell: systemctl status nopCommerce.service
     - name: Restart Nginx
       service:
         name: nginx            
