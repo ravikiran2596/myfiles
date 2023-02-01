@@ -1,0 +1,13 @@
+---
+- name: Install nopCommerce on ubuntu 
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download Microsoft packages
+      get_url:
+        url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+        dest: /tmp/packages-microsoft-prod.deb
+    - name: Install Microsoft packages
+      dpkg:
+        path: /tmp/packages-microsoft-prod.deb
+        state: present
