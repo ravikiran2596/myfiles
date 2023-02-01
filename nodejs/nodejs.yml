@@ -12,7 +12,7 @@
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']" 
     - name: Add NodeSource using shell on centos 
-      shell: curl -sL https://rpm.nodesource.com/setup_1.x | sudo bash -
+      shell: curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install node.js on centos 
       yum:
