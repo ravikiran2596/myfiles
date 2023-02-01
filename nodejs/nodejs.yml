@@ -5,9 +5,7 @@
   tasks:
     - name: Install Node package manager and Nodejs on Ubuntu.
       ansible.builtin.apt:
-        name: 
-         - npm
-         - nodejs
+        name: nodejs
         update_cache: true
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']" 
