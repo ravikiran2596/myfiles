@@ -1,2 +1,26 @@
 ---
 # tasks file for roledotnet
+- name: Install apt transport https
+  ansible.builtin.apt:
+    name: apt-transport-https
+    update_cache: yes 
+    state: present   
+  when: "'Ubuntu' in ansible_facts['distribution']"    
+- name: Install dotnet core
+  ansible.builtin.apt:
+    name: dotnet-sdk-{{ dotnet_ubuntu }}
+    update_cache: yes 
+    state: present
+  when: "'Ubuntu' in ansible_facts['distribution']"  
+- name: install redhat package manager
+  ansible.builtin.package:
+    name: https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+    update_cache: yes 
+    state: present
+  when: "'CentOS' in ansible_facts['distribution']"    
+- name: install dotnet
+  ansible.builtin.yum:    
+    name: dotnet-sdk-{{ dotnet_centos }}
+    update_cache: yes 
+    state: present
+  when: "'CentOS' in ansible_facts['distribution']" 

@@ -1,2 +1,4 @@
 ---
 # vars file for roledotnet
+dotnet_ubuntu: "6.0"
+dotnet_centos: "7.0"

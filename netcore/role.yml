@@ -1,0 +1,6 @@
+---
+- name: install dotnet
+  become: yes
+  hosts: all
+  roles:
+   - roledotnet
