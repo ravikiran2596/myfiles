@@ -28,12 +28,11 @@ sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-
   
 PLAYBOOK FOR UBUNTU AND CENTOS
 ------------------------------
-
-``````
+```````
 ---
 - name: install dotnet core 6.0
-  become: yes
   hosts: all
+  become: yes 
   vars:
     dotnet_ubuntu: "6.0"
     dotnet_centos: "7.0"
@@ -62,5 +61,19 @@ PLAYBOOK FOR UBUNTU AND CENTOS
         update_cache: yes 
         state: present
       when: "'CentOS' in ansible_facts['distribution']"  
+```````
 
-``````
+
+Converting Playbook Intlo Roles
+--------------------------------
+### We need to create Role
+````````
+ansible-galaxy role init (name)
+````````
+![preview]()
+
+
+
+
+
+
