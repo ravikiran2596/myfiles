@@ -43,7 +43,7 @@ PLAYBOOK FOR UBUNTU AND CENTOS
         update_cache: yes 
         state: present   
       when: "'Ubuntu' in ansible_facts['distribution']"    
-    - name: Install dotnet core
+    - name: Install dotnet 
       ansible.builtin.apt:
         name: dotnet-sdk-{{ dotnet_ubuntu }}
         update_cache: yes 
@@ -70,7 +70,29 @@ Converting Playbook Intlo Roles
 ````````
 ansible-galaxy role init (name)
 ````````
-![preview]()
+![preview](myworkimages/work1.png)
+
+* After the Role has Created it Contains below files in it.
+  ![preview](myworkimages/work2.png)
+
+* The Playbook has to be Devide as per the files.
+* Tasks in Playbook should be placed in roles folder tasks.
+* VARS in Playbook should be placed in roles folder vars.
+* Handlers in Playbook should be placed in roles folder handlers.
+
+Roles format:
+`````
+---
+- name: install dotnet
+  become: yes
+  hosts: all
+  roles:
+   - roledotnet
+
+`````
+
+
+![preview](myworkimages/work3.png)
 
 
 
