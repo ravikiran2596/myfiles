@@ -15,7 +15,7 @@
       apt:
         name:
           - apt-transport-https
-          - aspnetcore-runtime-7.0
+          - dotnet-sdk-6.0
         update_cache: yes  
         state: present
     - name: Install Nginx
