@@ -1,2 +1,14 @@
 ---
 # tasks file for rolejava
+- name: Install Java on Ubuntu
+  apt:
+    name: openjdk-17-jdk
+    update_cache: true
+    state: present
+  when: "'Ubuntu' in ansible_facts['distribution']"  
+- name: Install Java on CentOS
+  yum:
+    name: java-11-openjdk
+    state: present
+    update_cache: true
+  when: "'CentOS' in ansible_facts['distribution']"    
