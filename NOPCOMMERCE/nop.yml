@@ -53,4 +53,11 @@
     - name: Create logs directory
       file:
         path: /var/www/nopCommerce/logs
-        state: directory         
+        state: directory     
+    - name: Change group and ownership of nopCommerce
+      file:
+        path: /var/www/nopCommerce
+        owner: www-data
+        group: www-data
+        recurse: yes
+                
