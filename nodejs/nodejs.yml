@@ -2,6 +2,8 @@
 - name: install nodejs
   hosts: all
   become: yes
+  var:
+   version: "16"
   tasks:
     - name: Install Node package manager and Nodejs on Ubuntu.
       ansible.builtin.apt:
@@ -10,7 +12,7 @@
         state: present
       when: "'Ubuntu' in ansible_facts['distribution']" 
     - name: Add NodeSource using shell on centos 
-      shell: curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+      shell: "curl -sL https://rpm.nodesource.com/setup_{{ version }}.x | sudo bash -"
       when: "'CentOS' in ansible_facts['distribution']"    
     - name: install node.js on centos 
       yum:
