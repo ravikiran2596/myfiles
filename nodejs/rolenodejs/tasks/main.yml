@@ -1,2 +1,16 @@
 ---
 # tasks file for rolenodejs
+- name: Install Node package manager and Nodejs on Ubuntu.
+  ansible.builtin.apt:
+    name: nodejs
+    update_cache: true
+    state: present
+  when: "'Ubuntu' in ansible_facts['distribution']" 
+- name: Add NodeSource using shell on centos 
+  shell: "curl -sL https://rpm.nodesource.com/setup_{{ version }}.x | sudo bash -"
+  when: "'CentOS' in ansible_facts['distribution']"    
+- name: install node.js on centos 
+  yum:
+    name: nodejs
+    state: present   
+  when: "'CentOS' in ansible_facts['distribution']" 

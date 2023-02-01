@@ -1,0 +1,6 @@
+---
+- name: install nodejs
+  become: yes
+  hosts: all
+  roles:
+  - rolenodejs
