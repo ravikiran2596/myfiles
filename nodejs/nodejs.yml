@@ -2,8 +2,8 @@
 - name: install nodejs
   hosts: all
   become: yes
-  var:
-   version: "16"
+  vars:
+    version: "16"
   tasks:
     - name: Install Node package manager and Nodejs on Ubuntu.
       ansible.builtin.apt:
