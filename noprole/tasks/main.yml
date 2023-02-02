@@ -11,7 +11,7 @@
       mode: '0440'
  - name: extract nopCommerce
    unarchive:
-      src: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip
+      src: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip/
       dest: /var/www/nopCommerce
       remote_src: yes
  - name: Create bin directory
