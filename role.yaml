@@ -4,3 +4,15 @@
   hosts: appserver
   roles:
     - noprole 
+
+- name: install nginx
+  become: yes
+  hosts: webserver
+  roles:
+    - ngnixrole
+
+- name: install nginx
+  become: yes
+  hosts: dbserver
+  roles:
+    - ngnixrole   
