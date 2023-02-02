@@ -1,2 +1,40 @@
 ---
 # tasks file for noprole
+ - name: Create nopCommerce directory
+   file:
+      path: /var/www/nopCommerce
+      state: directory
+ - name: Download nopCommerce
+   get_url:
+      url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.1/nopCommerce_4.60.1_NoSource_linux_x64.zip
+      dest: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip   
+ - name: extract nopCommerce
+   unarchive:
+      src: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip
+      dest: /var/www/nopCommerce
+      remote_src: yes
+ - name: Create bin directory
+   file:
+      path: /var/www/nopCommerce/bin
+      state: directory
+ - name: Create logs directory
+   file:
+      path: /var/www/nopCommerce/logs
+      state: directory     
+ - name: Change group and ownership of nopCommerce
+   file:
+      path: /var/www/nopCommerce
+      owner: www-data
+      group: www-data
+      recurse: yes
+ - name: Create nopCommerce service
+   copy:
+      src: nopCommerce.service
+      dest: /etc/systemd/system/nopCommerce.service
+      owner: root
+      group: root
+      mode: 0644
+ - name: Start nopCommerce
+   service:
+      name: nopCommerce
+      state: started

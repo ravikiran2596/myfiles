@@ -1,6 +1,18 @@
 ---
-- name: install java
+- name: install nop
   become: yes
-  hosts: all
+  hosts: appserver
   roles:
-    - myrole
+    - noprole 
+
+- name: install ngnix 
+  become: yes
+  hosts: webserver
+  roles:
+    - ngnixrole
+
+- name: install mysql
+  become: yes 
+  hosts: dbserver
+  roles:
+    - geerlingguy.mysql

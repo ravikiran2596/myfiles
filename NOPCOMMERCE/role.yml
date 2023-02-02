@@ -1,7 +1,0 @@
----
-- name: install nop and postgresql
-  become: yes
-  hosts: all
-  roles:
-   - noproles
-   - geerlingguy.postgresql
