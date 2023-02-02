@@ -11,8 +11,8 @@
   roles:
     - ngnixrole
 
-- name: install nginx
+- name: install mysql
   become: yes
   hosts: dbserver
   roles:
-    - ngnixrole   
+    - geerlingguy.mysql
