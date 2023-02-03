@@ -1,17 +1,13 @@
 [Unit]
-Description=Example nopCommerce app running on Xubuntu
+Description=NopCommerce Service
+After=network.target
 
 [Service]
-WorkingDirectory=/var/www/nopCommerce
-ExecStart=/usr/bin/dotnet /var/www/nopCommerce/Nop.Web.dll
-Restart=always
-# Restart service after 10 seconds if the dotnet service crashes:
-RestartSec=10
-KillSignal=SIGINT
-SyslogIdentifier=nopCommerce-example
+Type=simple
 User=www-data
-Environment=ASPNETCORE_ENVIRONMENT=Production
-Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+WorkingDirectory=/var/www/html/nopcommerce
+ExecStart=/usr/bin/dotnet /var/www/html/nopcommerce/Nop.Web.dll
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
