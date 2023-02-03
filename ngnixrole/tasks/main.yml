@@ -7,11 +7,11 @@
 - name: Start Nginx
   service:
     name: nginx
-    state: started    
+    state: started
 - name: Create Nginx default configuration
   copy:
-    src: default.conf
-    dest: /etc/nginx/sites-available/default
+    src: nginx.conf 
+    dest: /etc/nginx/nginx.conf
     owner: root
     group: root
     mode: 0644  

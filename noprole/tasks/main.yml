@@ -19,22 +19,22 @@
       remote_src: yes
  - name: Create bin directory
    file:
-      path: /var/www/nopCommerce/bin
+      path: /var/www/html/nopCommerce/bin
       state: directory
  - name: Create logs directory
    file:
-      path: /var/www/nopCommerce/logs
+      path: /var/www/html/nopCommerce/logs
       state: directory     
  - name: Change group and ownership of nopCommerce
    file:
-      path: /var/www/nopCommerce
+      path: /var/www/html/nopCommerce
       owner: www-data
       group: www-data
       recurse: yes
  - name: Create nopCommerce service
    copy:
       src: nopCommerce.service
-      dest: /etc/systemd/system/nopCommerce.service
+      dest: /var/www/html/nopCommerce
       owner: root
       group: root
       mode: 0644
