@@ -30,5 +30,7 @@
     mode: 0644  
 - name: Restart Nginx
   service:
-      name: nginx       
-      state: restarted 
+    name: nginx   
+    daemon_reload: true
+    state: restarted
+      
