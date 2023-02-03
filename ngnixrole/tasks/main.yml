@@ -1,5 +1,18 @@
 ---
 # tasks file for ngnixrole
+- name: Download Microsoft packages
+  get_url:
+    url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+    dest: /tmp 
+- name: Install Microsoft packages
+  dpkg_selections:
+    name: packages-microsoft-prod.deb
+    selection: install 
+- name: Install apt-transport-https and Dotnet 
+  apt:
+    name:
+      - apt-transport-https
+      - dotnet-sdk-6.0
 - name: Install Nginx
   apt:
     name: nginx
@@ -10,11 +23,12 @@
     state: started
 - name: Create Nginx default configuration
   copy:
-    src: nginx.conf 
-    dest: /etc/nginx/nginx.conf
+    src: default.conf 
+    dest: /etc/nginx/sites-available/default
     owner: root
     group: root
     mode: 0644  
 - name: Restart Nginx
   service:
       name: nginx       
+      state: restarted 
