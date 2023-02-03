@@ -1,15 +1,15 @@
 ---
-- name: install nginx
-  become: yes
-  hosts: webserver
-  roles:
-    - ngnixrole
-
 - name: install nop
   become: yes
   hosts: appserver
   roles:
-    - noprole    
+    - noprole
+
+- name: install nginx
+  become: yes
+  hosts: webserver
+  roles:
+    - ngnixrole      
 
 - name: install mysql
   become: yes
