@@ -7,34 +7,34 @@
  - name: Download nopCommerce
    get_url:
       url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.1/nopCommerce_4.60.1_NoSource_linux_x64.zip
-      dest: /tmp/nopCommerce_4.60.1_NoSource_linux_x64.zip
+      dest: /var/www/nopCommerce
  - name: Install unzip
    apt:
      name: unzip
      state: present
  - name: extract nopCommerce
    unarchive:
-      src: /tmp/nopCommerce_4.60.1_NoSource_linux_x64.zip
+      src: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip
       dest: /var/www/nopCommerce
       remote_src: yes
  - name: Create bin directory
    file:
-      path: /var/www/html/nopCommerce/bin
+      path: /var/www/nopCommerce/bin
       state: directory
  - name: Create logs directory
    file:
-      path: /var/www/html/nopCommerce/logs
+      path: /var/www/nopCommerce/logs
       state: directory     
  - name: Change group and ownership of nopCommerce
    file:
-      path: /var/www/html/nopCommerce
+      path: /var/www/nopCommerce
       owner: www-data
       group: www-data
       recurse: yes
  - name: Create nopCommerce service
    copy:
       src: nopCommerce.service
-      dest: /var/www/html/nopCommerce
+      dest: /var/www/nopCommerce
       owner: root
       group: root
       mode: 0644
