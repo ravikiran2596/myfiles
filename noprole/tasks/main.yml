@@ -7,7 +7,7 @@
  - name: Download nopCommerce
    get_url:
       url: https://github.com/nopSolutions/nopCommerce/releases/download/release-4.60.1/nopCommerce_4.60.1_NoSource_linux_x64.zip
-      dest: /var/www/nopCommerce
+      dest: /var/www/nopCommerce/nopCommerce_4.60.1_NoSource_linux_x64.zip
  - name: Install unzip
    apt:
      name: unzip
