@@ -20,6 +20,7 @@
    become: yes
    apt:
      name: unzip
+     update_cache: yes
      state: present
  - name: extract nopCommerce
    unarchive:
