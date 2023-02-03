@@ -1,5 +1,20 @@
 ---
 # tasks file for noprole
+ - name: Download Microsoft packages
+   get_url:
+    url: https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+    dest: /tmp 
+ - name: Install Microsoft packages
+   dpkg_selections:
+    name: packages-microsoft-prod.deb
+    selection: install 
+ - name: Install apt-transport-https and Dotnet 
+   apt:
+    name:
+      - apt-transport-https
+      - dotnet-sdk-6.0
+    update_cache: yes  
+    state: present
  - name: Create nopCommerce directory
    file:
       path: /var/www/nopCommerce
