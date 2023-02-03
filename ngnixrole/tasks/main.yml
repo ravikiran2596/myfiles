@@ -18,7 +18,7 @@
     name: nginx
     state: present
 - name: Start Nginx
-  service:
+  systemd:
     name: nginx
     state: started
 - name: Create Nginx default configuration
@@ -29,8 +29,8 @@
     group: root
     mode: 0644  
 - name: Restart Nginx
-  service:
+  systemd:
     name: nginx   
     daemon_reload: true
-    state: restarted
+    state: started
       
