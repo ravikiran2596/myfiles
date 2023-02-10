@@ -7,7 +7,10 @@ pool:
 steps:
 - script: df -H
   displayName: 'Run Disk utilization'
+
 - script: sudo apt update
   displayName: 'update the packages of ubuntu'
-- script: start.sh
-  displayName: 'run shell script'
+
+- task: ShellScript@2
+  inputs:
+    scriptPath: 'start.sh'
