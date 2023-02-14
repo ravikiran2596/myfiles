@@ -4,22 +4,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-jobs:
-- job: displaying disk utilization'
-  displayName: print disk utilization status
-  steps:
-  - script: df -H
-    displayName: 'Run Disk utilization'
+steps:
+- script: df -H
+  displayName: 'Run Disk utilization'
 
-- job: updating packages
-  displayName: ubuntu packages update
-  steps:  
-  - script: sudo apt update
-    displayName: 'update the packages of ubuntu'
+- script: sudo apt update
+  displayName: 'update the packages of ubuntu'
 
-- job: shell scripts 
-  displayName: running sell scripts
-  steps:
-  - task: ShellScript@2
-    inputs:
-      scriptPath: 'start.sh'
+- task: ShellScript@2
+  inputs:
+    scriptPath: 'start.sh'
