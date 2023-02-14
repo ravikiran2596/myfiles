@@ -4,13 +4,16 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: df -H
-  displayName: 'Run Disk utilization'
+jobs:
+- job: 
+  displayName:
+  steps:
+  - script: df -H
+    displayName: 'Run Disk utilization'
 
-- script: sudo apt update
-  displayName: 'update the packages of ubuntu'
+  - script: sudo apt update
+    displayName: 'update the packages of ubuntu'
 
-- task: ShellScript@2
-  inputs:
-    scriptPath: 'start.sh'
+  - task: ShellScript@2
+    inputs:
+      scriptPath: 'start.sh'
