@@ -11,3 +11,15 @@ terraform {
 provider "shell" {
   
 }
+
+data "shell_script" "ravikiran" {
+    lifecycle_commands {
+        read = <<-EOF
+          echo "Hello ravikiran"
+        EOF
+    }
+}
+
+output "ravikiran" {
+  value = data.shell_script.ravikiran.output[ravikiran]
+}
